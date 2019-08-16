@@ -1,0 +1,6 @@
+calendar:
+  url: https://www.marca.com/futbol/segunda-division/calendario.html
+logging:
+  level:
+    root: INFO
+    es.maxtuni.mp: DEBUG
