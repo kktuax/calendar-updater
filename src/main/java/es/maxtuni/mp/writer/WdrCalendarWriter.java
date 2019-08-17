@@ -1,23 +1,26 @@
 package es.maxtuni.mp.writer;
 
+import java.io.BufferedWriter;
+import java.io.IOException;
 import java.time.format.DateTimeFormatter;
-import java.util.function.Consumer;
 
 import es.maxtuni.mp.Calendar;
 import es.maxtuni.mp.Calendar.Match;
 
-public class WdrCalendarWriter implements Consumer<Calendar> {
+public class WdrCalendarWriter implements CalendarWriter {
 
 	@Override
-	public void accept(Calendar calendar) {
+	public void write(Calendar calendar, BufferedWriter writer) throws IOException {
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
 		for(Match match : calendar.getMatches()) {
 			if(match.hasTeam("Racing") && calendar.getSchedules().containsKey(match)) {
 				String jornada = match.getRound().split(" ")[1];
 				String time = formatter.format(calendar.getSchedules().get(match));
-				System.out.println(String.format("%s|%s|%s|%s", time, jornada, match.getHome(), match.getAway()));	
+				writer.write(String.format("%s|%s|%s|%s", time, jornada, match.getHome(), match.getAway()));	
+				writer.newLine();
+				writer.flush();
 			}
 		}
 	}
-
+	
 }

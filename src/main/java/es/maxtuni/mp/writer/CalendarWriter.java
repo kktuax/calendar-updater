@@ -1,9 +1,13 @@
 package es.maxtuni.mp.writer;
 
-import java.util.function.Consumer;
+import java.io.BufferedWriter;
+import java.io.IOException;
 
 import es.maxtuni.mp.Calendar;
 
-public interface CalendarWriter extends Consumer<Calendar> {
+@FunctionalInterface
+public interface CalendarWriter {
 
+	public void write(Calendar calendar, BufferedWriter writer) throws IOException;
+	
 }
