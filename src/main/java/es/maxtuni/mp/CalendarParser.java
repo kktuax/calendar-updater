@@ -15,6 +15,7 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import lombok.Data;
+import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -108,6 +109,17 @@ class CalendarParser {
 		final String round, home, away;
 		
 		final LocalDateTime time;
+		
+		@Getter(lazy = true)
+		private final Optional<Integer> roundNumber = parseRoundNumber();
+		
+		Optional<Integer> parseRoundNumber() {
+			try {
+				return Optional.of(Integer.valueOf(round.replaceAll("[^\\d.]", "")));	
+			}catch (NumberFormatException e) {
+				return Optional.empty();
+			}
+		}
 		
 		public boolean hasTeam(String name) {
 			return name.equals(getHome()) || name.equals(getAway());
