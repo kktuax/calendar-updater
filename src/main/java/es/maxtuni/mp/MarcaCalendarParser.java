@@ -3,8 +3,6 @@ package es.maxtuni.mp;
 import java.io.IOException;
 import java.io.InputStream;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -14,15 +12,15 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+import es.maxtuni.mp.Calendar.Match;
 import lombok.Data;
-import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-class CalendarParser {
+public class MarcaCalendarParser {
 
-	public static List<Match> parse(InputStream calendarIs) throws IOException {
-		List<Match> matches = new ArrayList<>();
+	public static Calendar parse(InputStream calendarIs) throws IOException {
+		Calendar.CalendarBuilder builder = Calendar.builder();
 		Document doc = Jsoup.parse(calendarIs, "ISO-8859-1", "https://www.marca.com/");
 		Optional<Season> season = Season.fromTitle(doc);
 		Elements tables = doc.select("table.jor");
@@ -33,15 +31,18 @@ class CalendarParser {
 			for (Element matchTr : table.select("tr")) {
 				Optional<Element> homeSpan = Optional.ofNullable(matchTr.selectFirst("td.local span"));
 				Optional<Element> awaySpan = Optional.ofNullable(matchTr.selectFirst("td.visitante span"));
-				Optional<LocalDateTime> time = time(matchTr, season);
-				if(homeSpan.isPresent() && awaySpan.isPresent() && time.isPresent()) {
-					Match match = new Match(round, homeSpan.get().text(), awaySpan.get().text(), time.get());
+				if(homeSpan.isPresent() && awaySpan.isPresent()) {
+					Match match = new Match(round, homeSpan.get().text(), awaySpan.get().text());
+					builder = builder.match(match);
 					log.debug("Found match: {}", match);
-					matches.add(match);
+					Optional<LocalDateTime> time = time(matchTr, season);
+					if(time.isPresent()) {
+						builder = builder.schedule(match, time.get());
+					}
 				}
 			}
 		}
-		return matches;
+		return builder.build();
 	}
 	
 	static Optional<LocalDateTime> time(Element matchTr, Optional<Season> season){
@@ -103,28 +104,4 @@ class CalendarParser {
 		
 	}
 	
-	@Data
-	static class Match {
-		
-		final String round, home, away;
-		
-		final LocalDateTime time;
-		
-		@Getter(lazy = true)
-		private final Optional<Integer> roundNumber = parseRoundNumber();
-		
-		Optional<Integer> parseRoundNumber() {
-			try {
-				return Optional.of(Integer.valueOf(round.replaceAll("[^\\d.]", "")));	
-			}catch (NumberFormatException e) {
-				return Optional.empty();
-			}
-		}
-		
-		public boolean hasTeam(String name) {
-			return name.equals(getHome()) || name.equals(getAway());
-		}
-		
-	}
-
 }
