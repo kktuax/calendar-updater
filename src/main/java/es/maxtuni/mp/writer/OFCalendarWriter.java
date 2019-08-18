@@ -11,6 +11,8 @@ import java.util.Map;
 import java.util.TreeMap;
 import java.util.stream.Collectors;
 
+import org.springframework.util.comparator.Comparators;
+
 import es.maxtuni.mp.Calendar;
 
 /**
@@ -21,6 +23,10 @@ public class OFCalendarWriter implements CalendarWriter {
 	
 	@Override
 	public void write(Calendar calendar, BufferedWriter writer) throws IOException {
+		writer.write("###################################");
+		writer.newLine();
+		writer.write(String.format("# %s %s", calendar.getName(), seasonStr(calendar)));
+		writer.newLine();
 		List<MatchInfo> matches = MatchInfo.fromCalendar(calendar);
 		Map<Integer, List<MatchInfo>> rounds = matches.stream()
 			.collect(Collectors.groupingBy(
@@ -57,6 +63,28 @@ public class OFCalendarWriter implements CalendarWriter {
 		}
 	}
 
+	static String seasonStr(Calendar calendar) {
+		Integer startYear = calendar.getSchedules().values().stream()
+			.min(Comparators.comparable())
+			.map(d -> d.getYear())
+			.orElse(LocalDateTime.now().getYear());
+		Integer endYear = calendar.getSchedules().values().stream()
+			.max(Comparators.comparable())
+			.map(d -> d.getYear())
+			.orElse(LocalDateTime.now().getYear() + 1);
+		String startYearStr = startYear.toString();
+		String endYearStr = endYear.toString();
+		String prefix = "";
+		int minLength = Math.min(startYearStr.length(), endYearStr.length());
+		for (int i = 0; i < minLength; i++) {
+			if (startYearStr.charAt(i) != endYearStr.charAt(i)) {
+				prefix = startYearStr.substring(0, i);
+				break;
+			}
+		}		
+		return String.format("%s/%s", startYearStr, endYearStr.substring(prefix.length()));
+	}
+	
 	static final DateTimeFormatter TIME_FMT = DateTimeFormatter.ofPattern("HH:mm"),
 		DATE_FMT = DateTimeFormatter.ofPattern("EEE'.' dd'.'M'.'");
 	
