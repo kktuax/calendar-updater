@@ -14,7 +14,7 @@ public class CalendarParserTest {
 	@Test
 	public void testParse() throws Exception {
 		try(InputStream is = getClass().getResourceAsStream("/calendar-2394092156733122534.html")){
-			Calendar calendar = MarcaCalendarReader.parse("", is);
+			Calendar calendar = new MarcaCalendarReader().read("", is);
 			Assert.assertFalse(calendar.getMatches().isEmpty());
 			Assert.assertEquals(42, calendar.getMatches().stream()
 				.collect(Collectors.groupingBy(Match::getRound))
