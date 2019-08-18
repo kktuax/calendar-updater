@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.Comparator;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -28,12 +29,13 @@ public class OFCalendarWriter implements CalendarWriter {
 		writer.write(String.format("# %s %s", calendar.getName(), seasonStr(calendar)));
 		writer.newLine();
 		List<MatchInfo> matches = MatchInfo.fromCalendar(calendar);
-		Map<Integer, List<MatchInfo>> rounds = matches.stream()
+		Map<String, List<MatchInfo>> rounds = matches.stream()
+			.sorted(Comparator.comparing(mi -> Integer.valueOf(mi.getMatch().getRound().replaceAll("[^\\d.]", ""))))
 			.collect(Collectors.groupingBy(
-				m -> Integer.valueOf(m.getMatch().getRoundNumber().orElse(0)),
-				TreeMap::new, Collectors.toList()
+				m -> m.getMatch().getRound(),
+				LinkedHashMap::new, Collectors.toList()
 			));
-		for(Map.Entry<Integer, List<MatchInfo>> round : rounds.entrySet()) {
+		for(Map.Entry<String, List<MatchInfo>> round : rounds.entrySet()) {
 			writer.newLine();
 			writer.newLine();
 			writer.write(round.getValue().get(0).getMatch().getRound());
