@@ -1,15 +1,13 @@
-package es.maxtuni.mp.writer;
+package es.maxtuni.mp;
 
 import java.time.LocalDateTime;
 
 import org.junit.Assert;
 import org.junit.Test;
 
-import es.maxtuni.mp.Calendar;
 import es.maxtuni.mp.Calendar.Match;
 
-
-public class OFCalendarWriterTest {
+public class SeasonTest {
 
 	@Test
 	public void testSeasonStr() throws Exception {
@@ -18,8 +16,8 @@ public class OFCalendarWriterTest {
 		Calendar calendar = Calendar.builder()
 			.schedule(new Match("1", "home", "away"), time1)
 			.schedule(new Match("2", "away", "home"), time2)
-				.build();
-		Assert.assertEquals("2019/20", OFCalendarWriter.seasonStr(calendar));
+			.build();
+		Assert.assertEquals("2019/20", Season.from(calendar).toString());
 	}
 	
 }

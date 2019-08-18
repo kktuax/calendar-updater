@@ -13,9 +13,9 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import es.maxtuni.mp.Calendar;
+import es.maxtuni.mp.Season;
 import es.maxtuni.mp.Calendar.Match;
 import es.maxtuni.mp.Calendar.Result;
-import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -26,7 +26,7 @@ public class MarcaCalendarReader implements CalendarReader {
 		Calendar.CalendarBuilder builder = Calendar.builder()
 			.name(name);
 		Document doc = Jsoup.parse(calendarIs, "ISO-8859-1", "https://www.marca.com/");
-		Optional<Season> season = Season.fromTitle(doc);
+		Optional<Season> season = season(doc);
 		Elements tables = doc.select("table.jor");
 		log.debug("Found {} tables", tables.size());
 		for (Element table : tables) {
@@ -106,30 +106,18 @@ public class MarcaCalendarReader implements CalendarReader {
 		return Optional.empty();
 	}
 	
-	@Data
-	private static class Season {
-		
-		final int start, end;
-		
-		public static Optional<Season> fromTitle(Document doc) {
-			Pattern yearsPattern = Pattern.compile(".*(\\d{4}) - (\\d{4}).*");
-			String title = doc.getElementsByTag("title").text();
-			Matcher matcher = yearsPattern.matcher(title);
-			if(matcher.matches()) {
-				Integer start = Integer.valueOf(matcher.group(1));
-				Integer end = Integer.valueOf(matcher.group(2));
-				Season season = new Season(start, end);
-				log.debug("Found season {}", season);
-				return Optional.of(season);
-			}
-			return Optional.empty();
+	static Optional<Season> season(Document doc) {
+		Pattern yearsPattern = Pattern.compile(".*(\\d{4}) - (\\d{4}).*");
+		String title = doc.getElementsByTag("title").text();
+		Matcher matcher = yearsPattern.matcher(title);
+		if(matcher.matches()) {
+			Integer start = Integer.valueOf(matcher.group(1));
+			Integer end = Integer.valueOf(matcher.group(2));
+			Season season = new Season(start, end);
+			log.debug("Found season {}", season);
+			return Optional.of(season);
 		}
-		
-		public LocalDateTime getTime(int dayOfMonth, int month, int hour, int minute) {
-			int year = month <=7 ? end : start;
-			return LocalDateTime.of(year, month, dayOfMonth, hour, minute);
-		}
-		
+		return Optional.empty();
 	}
 	
 }
