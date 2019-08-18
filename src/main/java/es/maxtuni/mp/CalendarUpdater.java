@@ -9,7 +9,8 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
-import es.maxtuni.mp.reader.MarcaCalendarReader;
+import es.maxtuni.mp.model.Calendar;
+import es.maxtuni.mp.reader.MarcaReader;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 
@@ -19,7 +20,7 @@ public class CalendarUpdater implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		MarcaCalendarReader reader = new MarcaCalendarReader();
+		MarcaReader reader = new MarcaReader();
 		for(CalendarDetails cal : config.getCalendars()) {
 			log.debug("Reading calendar from {}", cal.getUrl());
 			try(InputStream is = cal.getUrl().openStream()) {

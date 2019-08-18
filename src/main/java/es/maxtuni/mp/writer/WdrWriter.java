@@ -4,10 +4,10 @@ import java.io.BufferedWriter;
 import java.io.IOException;
 import java.time.format.DateTimeFormatter;
 
-import es.maxtuni.mp.Calendar;
-import es.maxtuni.mp.Calendar.Match;
+import es.maxtuni.mp.model.Calendar;
+import es.maxtuni.mp.model.Match;
 
-public class WdrCalendarWriter implements CalendarWriter {
+public class WdrWriter implements CalendarWriter {
 
 	@Override
 	public void write(Calendar calendar, BufferedWriter writer) throws IOException {

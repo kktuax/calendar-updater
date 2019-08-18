@@ -5,9 +5,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import es.maxtuni.mp.Calendar;
-import es.maxtuni.mp.Calendar.Match;
-import es.maxtuni.mp.Calendar.Result;
+import es.maxtuni.mp.model.Calendar;
+import es.maxtuni.mp.model.Match;
+import es.maxtuni.mp.model.Result;
 import lombok.Builder;
 import lombok.Data;
 

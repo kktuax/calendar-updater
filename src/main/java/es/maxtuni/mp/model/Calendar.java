@@ -1,4 +1,4 @@
-package es.maxtuni.mp;
+package es.maxtuni.mp.model;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -14,6 +14,8 @@ import lombok.Singular;
 public class Calendar {
 
 	private final String name;
+	
+	private final Season season;
 	
 	@Singular
 	private final List<Match> matches;
@@ -46,22 +48,6 @@ public class Calendar {
 			b = b.schedule(m.getKey(), m.getValue());
 		}
 		return b.build();
-	}
-	
-	@Data
-	public static class Result {
-		private final int home, away;
-	}
-	
-	@Data
-	public static class Match {
-		
-		private final String round, home, away;
-		
-		public boolean hasTeam(String name) {
-			return name.equals(getHome()) || name.equals(getAway());
-		}
-		
 	}
 	
 }

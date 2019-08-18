@@ -12,21 +12,22 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-import es.maxtuni.mp.Calendar;
-import es.maxtuni.mp.Season;
-import es.maxtuni.mp.Calendar.Match;
-import es.maxtuni.mp.Calendar.Result;
+import es.maxtuni.mp.model.Calendar;
+import es.maxtuni.mp.model.Match;
+import es.maxtuni.mp.model.Season;
+import es.maxtuni.mp.model.Result;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-public class MarcaCalendarReader implements CalendarReader {
+public class MarcaReader implements CalendarReader {
 
 	@Override
 	public Calendar read(String name, InputStream calendarIs) throws IOException {
-		Calendar.CalendarBuilder builder = Calendar.builder()
-			.name(name);
 		Document doc = Jsoup.parse(calendarIs, "ISO-8859-1", "https://www.marca.com/");
 		Optional<Season> season = season(doc);
+		Calendar.CalendarBuilder builder = Calendar.builder()
+			.name(name)
+			.season(season.orElse(Season.currentSeason()));
 		Elements tables = doc.select("table.jor");
 		log.debug("Found {} tables", tables.size());
 		for (Element table : tables) {

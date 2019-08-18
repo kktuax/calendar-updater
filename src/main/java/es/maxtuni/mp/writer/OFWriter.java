@@ -12,20 +12,20 @@ import java.util.Map;
 import java.util.TreeMap;
 import java.util.stream.Collectors;
 
-import es.maxtuni.mp.Calendar;
-import es.maxtuni.mp.Season;
+import es.maxtuni.mp.model.Calendar;
+import es.maxtuni.mp.model.Season;
 
 /**
  * Writes a calendar in <a href="https://github.com/openfootball/">Open Football</a> format
  *
  */
-public class OFCalendarWriter implements CalendarWriter {
+public class OFWriter implements CalendarWriter {
 	
 	@Override
 	public void write(Calendar calendar, BufferedWriter writer) throws IOException {
 		writer.write("###################################");
 		writer.newLine();
-		writer.write(String.format("# %s %s", calendar.getName(), Season.from(calendar).toString()));
+		writer.write(String.format("# %s %s", calendar.getName(), Season.from(calendar)));
 		writer.newLine();
 		List<MatchInfo> matches = MatchInfo.fromCalendar(calendar);
 		Map<String, List<MatchInfo>> rounds = matches.stream()
