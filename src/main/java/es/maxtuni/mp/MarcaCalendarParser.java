@@ -19,8 +19,9 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class MarcaCalendarParser {
 
-	public static Calendar parse(InputStream calendarIs) throws IOException {
-		Calendar.CalendarBuilder builder = Calendar.builder();
+	public static Calendar parse(String name, InputStream calendarIs) throws IOException {
+		Calendar.CalendarBuilder builder = Calendar.builder()
+			.name(name);
 		Document doc = Jsoup.parse(calendarIs, "ISO-8859-1", "https://www.marca.com/");
 		Optional<Season> season = Season.fromTitle(doc);
 		Elements tables = doc.select("table.jor");

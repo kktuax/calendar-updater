@@ -1,5 +1,8 @@
-calendar:
-  url: https://www.marca.com/futbol/segunda-division/calendario.html
+marca-calendars:
+  - name: Primera División
+    url: https://www.marca.com/futbol/primera-division/calendario.html
+  - name: Segunda División
+    url: https://www.marca.com/futbol/segunda-division/calendario.html
 logging:
   level:
     root: INFO

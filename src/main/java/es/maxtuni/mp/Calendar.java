@@ -14,6 +14,8 @@ import lombok.Singular;
 @Builder
 public class Calendar {
 
+	private final String name;
+	
 	@Singular
 	private final List<Match> matches;
 	
