@@ -46,7 +46,7 @@ public class OFWriter implements CalendarWriter {
 					TreeMap::new, Collectors.toList()
 				))
 				.entrySet()) {
-				writer.write(String.format("[%s]", DATE_FMT.format(day.getKey())));
+				writer.write(String.format("[%s]", capitalize(DATE_FMT.format(day.getKey()))));
 				writer.newLine();
 				for(MatchInfo mi : day.getValue().stream()
 					.sorted(Comparator.comparing(m -> m.getTime().get()))
@@ -56,7 +56,7 @@ public class OFWriter implements CalendarWriter {
 					sb.append(String.format("  %s  ", TIME_FMT.format(mi.getTime().get())));
 					sb.append(String.format("%-23s", mi.getMatch().getHome()));
 					if(mi.getResult().isPresent()) {
-						sb.append(String.format("%s-%s", mi.getResult().get().getHome(), mi.getResult().get().getAway()));
+						sb.append(String.format(" %s-%s ", mi.getResult().get().getHome(), mi.getResult().get().getAway()));
 					}else {
 						sb.append(" - ");
 					}
@@ -67,6 +67,10 @@ public class OFWriter implements CalendarWriter {
 				}
 			}
 		}
+	}
+	
+	static String capitalize(String input) {
+		return input.substring(0, 1).toUpperCase() + input.substring(1);
 	}
 	
 	static final DateTimeFormatter TIME_FMT = DateTimeFormatter.ofPattern("HH:mm"),
