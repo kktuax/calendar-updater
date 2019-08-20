@@ -33,7 +33,9 @@ public class Calendar {
 			b = b.match(m);
 		}
 		for(Match m : newData.getMatches()) {
-			b = b.match(m);
+			if(!getMatches().contains(m)) {
+				b = b.match(m);
+			}
 		}
 		for(Entry<Match, Result> m : getResults().entrySet()) {
 			b = b.result(m.getKey(), m.getValue());

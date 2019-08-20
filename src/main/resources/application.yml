@@ -1,4 +1,4 @@
-openfootball-folder: ${user.home}/openfootball/es-espana
+﻿openfootball-folder: /home/kktuax/eclipse-ws/openfootball/es-espana
 calendars:
   - name: Primera División
     url: https://www.marca.com/futbol/primera-division/calendario.html

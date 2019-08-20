@@ -7,6 +7,6 @@ import es.maxtuni.mp.model.Calendar;
 
 public interface CalendarReader {
 
-	public Calendar read(String name, InputStream calendarIs) throws IOException;
+	public Calendar read(InputStream calendarIs) throws IOException;
 	
 }

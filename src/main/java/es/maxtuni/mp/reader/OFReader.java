@@ -12,13 +12,17 @@ import es.maxtuni.mp.model.Calendar;
 import es.maxtuni.mp.model.Match;
 import es.maxtuni.mp.model.Result;
 import es.maxtuni.mp.model.Season;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
+@RequiredArgsConstructor
 public class OFReader implements CalendarReader {
 
+	private final String name;
+	
 	@Override
-	public Calendar read(String name, InputStream calendarIs) throws IOException {
+	public Calendar read(InputStream calendarIs) throws IOException {
 		Calendar.CalendarBuilder builder = Calendar.builder()
 			.name(name);
 		try(BufferedReader reader = new BufferedReader(new InputStreamReader(calendarIs, "UTF-8"))){

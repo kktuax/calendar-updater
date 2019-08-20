@@ -3,7 +3,10 @@ package es.maxtuni.mp.reader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.time.LocalDateTime;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
+import java.util.Properties;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -14,15 +17,36 @@ import org.jsoup.select.Elements;
 
 import es.maxtuni.mp.model.Calendar;
 import es.maxtuni.mp.model.Match;
-import es.maxtuni.mp.model.Season;
 import es.maxtuni.mp.model.Result;
+import es.maxtuni.mp.model.Season;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
+@RequiredArgsConstructor
 public class MarcaReader implements CalendarReader {
 
+	private final String name;
+	
+	private final Map<String, String> teamNamesMapping;
+
+	public MarcaReader(String name) throws IOException {
+		this(name, defaultMappings());
+	}
+	
+	private static Map<String, String> defaultMappings() throws IOException{
+		Properties p = new Properties();
+		try(InputStream is = MarcaReader.class.getResourceAsStream("/marca-mappings.properties")) {
+			p.load(is);
+		}
+		Map<String, String> res = new HashMap<>();
+		for(String name: p.stringPropertyNames())
+			res.put(name, p.getProperty(name));
+		return res;		
+	}
+	
 	@Override
-	public Calendar read(String name, InputStream calendarIs) throws IOException {
+	public Calendar read(InputStream calendarIs) throws IOException {
 		Document doc = Jsoup.parse(calendarIs, "ISO-8859-1", "https://www.marca.com/");
 		Optional<Season> season = season(doc);
 		Calendar.CalendarBuilder builder = Calendar.builder()
@@ -37,7 +61,7 @@ public class MarcaReader implements CalendarReader {
 				Optional<Element> homeSpan = Optional.ofNullable(matchTr.selectFirst("td.local span"));
 				Optional<Element> awaySpan = Optional.ofNullable(matchTr.selectFirst("td.visitante span"));
 				if(homeSpan.isPresent() && awaySpan.isPresent()) {
-					Match match = new Match(round, homeSpan.get().text(), awaySpan.get().text());
+					Match match = new Match(round, teamName(homeSpan.get().text()), teamName(awaySpan.get().text()));
 					builder = builder.match(match);
 					log.debug("Found match: {}", match);
 					Optional<LocalDateTime> time = time(matchTr, season);
@@ -54,6 +78,13 @@ public class MarcaReader implements CalendarReader {
 		return builder.build();
 	}
 
+	private String teamName(String webPageName) {
+		if(teamNamesMapping != null && teamNamesMapping.containsKey(webPageName)) {
+			return Optional.ofNullable(teamNamesMapping.get(webPageName)).orElse(webPageName);
+		}
+		return webPageName;
+	}
+	
 	static Optional<Result> result(Element matchTr){
 		Optional<Integer> home = Optional
 			.ofNullable(matchTr.selectFirst("td.resultado span.resultado-partido"))
