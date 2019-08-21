@@ -36,8 +36,8 @@ public class OFWriter implements CalendarWriter {
 			));
 		for(Map.Entry<String, List<MatchInfo>> round : rounds.entrySet()) {
 			writer.newLine();
-			writer.newLine();
 			writer.write(round.getValue().get(0).getMatch().getRound());
+			writer.newLine();
 			writer.newLine();
 			for(Map.Entry<LocalDateTime, List<MatchInfo>> day : round.getValue().stream()
 				.filter(m -> m.getTime().isPresent())
@@ -74,6 +74,6 @@ public class OFWriter implements CalendarWriter {
 	}
 	
 	static final DateTimeFormatter TIME_FMT = DateTimeFormatter.ofPattern("HH:mm"),
-		DATE_FMT = DateTimeFormatter.ofPattern("EEE'.' dd'.'M'.'");
+		DATE_FMT = DateTimeFormatter.ofPattern("EEE'.' d'.'M'.'");
 	
 }
