@@ -36,8 +36,8 @@ public class OFWriter implements CalendarWriter {
 			));
 		for(Map.Entry<String, List<MatchInfo>> round : rounds.entrySet()) {
 			writer.newLine();
-			writer.write(round.getValue().get(0).getMatch().getRound());
 			writer.newLine();
+			writer.write(round.getValue().get(0).getMatch().getRound());
 			writer.newLine();
 			for(Map.Entry<LocalDateTime, List<MatchInfo>> day : round.getValue().stream()
 				.filter(m -> m.getTime().isPresent())
@@ -53,7 +53,7 @@ public class OFWriter implements CalendarWriter {
 					.collect(Collectors.toList())
 				) {
 					StringBuilder sb = new StringBuilder();
-					sb.append(String.format("  %s  ", TIME_FMT.format(mi.getTime().get())));
+					sb.append(String.format(" %s ", TIME_FMT.format(mi.getTime().get())));
 					sb.append(String.format("%-23s", mi.getMatch().getHome()));
 					if(mi.getResult().isPresent()) {
 						sb.append(String.format(" %s-%s ", mi.getResult().get().getHome(), mi.getResult().get().getAway()));
