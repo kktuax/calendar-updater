@@ -1,4 +1,4 @@
-package es.maxtuni.mp;
+package es.maxtuni.ofu;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -9,9 +9,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStreamWriter;
 
-import es.maxtuni.mp.model.Calendar;
-import es.maxtuni.mp.reader.OFReader;
-import es.maxtuni.mp.writer.OFWriter;
+import es.maxtuni.ofu.model.Calendar;
+import es.maxtuni.ofu.reader.OFReader;
+import es.maxtuni.ofu.writer.OFWriter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 

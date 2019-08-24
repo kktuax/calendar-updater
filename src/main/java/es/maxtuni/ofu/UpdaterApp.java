@@ -1,4 +1,4 @@
-package es.maxtuni.mp;
+package es.maxtuni.ofu;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

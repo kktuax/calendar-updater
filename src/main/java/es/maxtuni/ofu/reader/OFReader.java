@@ -1,4 +1,4 @@
-package es.maxtuni.mp.reader;
+package es.maxtuni.ofu.reader;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -8,10 +8,10 @@ import java.time.LocalDateTime;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import es.maxtuni.mp.model.Calendar;
-import es.maxtuni.mp.model.Match;
-import es.maxtuni.mp.model.Result;
-import es.maxtuni.mp.model.Season;
+import es.maxtuni.ofu.model.Calendar;
+import es.maxtuni.ofu.model.Match;
+import es.maxtuni.ofu.model.Result;
+import es.maxtuni.ofu.model.Season;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 

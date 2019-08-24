@@ -1,11 +1,11 @@
-package es.maxtuni.mp.writer;
+package es.maxtuni.ofu.writer;
 
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.time.format.DateTimeFormatter;
 
-import es.maxtuni.mp.model.Calendar;
-import es.maxtuni.mp.model.Match;
+import es.maxtuni.ofu.model.Calendar;
+import es.maxtuni.ofu.model.Match;
 
 public class WdrWriter implements CalendarWriter {
 

@@ -1,4 +1,4 @@
-package es.maxtuni.mp.model;
+package es.maxtuni.ofu.model;
 
 import lombok.Data;
 

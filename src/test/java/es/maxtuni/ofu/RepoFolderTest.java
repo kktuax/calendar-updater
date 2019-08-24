@@ -1,4 +1,4 @@
-package es.maxtuni.mp;
+package es.maxtuni.ofu;
 
 import java.io.File;
 import java.util.regex.Pattern;
@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
+
+import es.maxtuni.ofu.RepoFolder;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest

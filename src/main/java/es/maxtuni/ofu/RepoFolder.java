@@ -1,4 +1,4 @@
-package es.maxtuni.mp;
+package es.maxtuni.ofu;
 
 import java.io.File;
 import java.io.FileNotFoundException;

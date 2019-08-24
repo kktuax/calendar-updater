@@ -1,13 +1,13 @@
-package es.maxtuni.mp;
+package es.maxtuni.ofu;
 
 import java.time.LocalDateTime;
 
 import org.junit.Assert;
 import org.junit.Test;
 
-import es.maxtuni.mp.model.Calendar;
-import es.maxtuni.mp.model.Match;
-import es.maxtuni.mp.model.Season;
+import es.maxtuni.ofu.model.Calendar;
+import es.maxtuni.ofu.model.Match;
+import es.maxtuni.ofu.model.Season;
 
 public class SeasonTest {
 

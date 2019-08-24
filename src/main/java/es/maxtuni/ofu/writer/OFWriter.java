@@ -1,4 +1,4 @@
-package es.maxtuni.mp.writer;
+package es.maxtuni.ofu.writer;
 
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -12,8 +12,8 @@ import java.util.Map;
 import java.util.TreeMap;
 import java.util.stream.Collectors;
 
-import es.maxtuni.mp.model.Calendar;
-import es.maxtuni.mp.model.Season;
+import es.maxtuni.ofu.model.Calendar;
+import es.maxtuni.ofu.model.Season;
 
 /**
  * Writes a calendar in <a href="https://github.com/openfootball/">Open Football</a> format

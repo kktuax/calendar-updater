@@ -1,13 +1,13 @@
-package es.maxtuni.mp.writer;
+package es.maxtuni.ofu.writer;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import es.maxtuni.mp.model.Calendar;
-import es.maxtuni.mp.model.Match;
-import es.maxtuni.mp.model.Result;
+import es.maxtuni.ofu.model.Calendar;
+import es.maxtuni.ofu.model.Match;
+import es.maxtuni.ofu.model.Result;
 import lombok.Builder;
 import lombok.Data;
 

@@ -1,4 +1,4 @@
-package es.maxtuni.mp;
+package es.maxtuni.ofu;
 
 import java.io.File;
 import java.io.InputStream;
@@ -13,15 +13,15 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
-import es.maxtuni.mp.model.Calendar;
-import es.maxtuni.mp.reader.MarcaReader;
+import es.maxtuni.ofu.model.Calendar;
+import es.maxtuni.ofu.reader.MarcaReader;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 
 @Component
 @Slf4j
 @Profile("!test")
-public class CalendarUpdater implements CommandLineRunner {
+public class RepoUpdater implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {

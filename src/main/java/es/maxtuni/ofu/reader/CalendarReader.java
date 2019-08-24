@@ -1,9 +1,9 @@
-package es.maxtuni.mp.reader;
+package es.maxtuni.ofu.reader;
 
 import java.io.IOException;
 import java.io.InputStream;
 
-import es.maxtuni.mp.model.Calendar;
+import es.maxtuni.ofu.model.Calendar;
 
 public interface CalendarReader {
 

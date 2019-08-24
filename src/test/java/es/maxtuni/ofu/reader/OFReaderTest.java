@@ -1,12 +1,13 @@
-package es.maxtuni.mp.reader;
+package es.maxtuni.ofu.reader;
 
 import java.io.InputStream;
 
 import org.junit.Assert;
 import org.junit.Test;
 
-import es.maxtuni.mp.model.Calendar;
-import es.maxtuni.mp.model.Season;
+import es.maxtuni.ofu.model.Calendar;
+import es.maxtuni.ofu.model.Season;
+import es.maxtuni.ofu.reader.OFReader;
 
 public class OFReaderTest {
 

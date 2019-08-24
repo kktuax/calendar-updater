@@ -1,4 +1,4 @@
-package es.maxtuni.mp.reader;
+package es.maxtuni.ofu.reader;
 
 import java.io.InputStream;
 import java.util.stream.Collectors;
@@ -6,8 +6,9 @@ import java.util.stream.Collectors;
 import org.junit.Assert;
 import org.junit.Test;
 
-import es.maxtuni.mp.model.Calendar;
-import es.maxtuni.mp.model.Match;
+import es.maxtuni.ofu.model.Calendar;
+import es.maxtuni.ofu.model.Match;
+import es.maxtuni.ofu.reader.MarcaReader;
 
 public class MarcaReaderTest {
 

@@ -10,10 +10,10 @@
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>es.maxtuni</groupId>
-	<artifactId>marca-parser</artifactId>
+	<artifactId>of-updater</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>marca-parser</name>
-	<description>Parser for marca</description>
+	<name>of-updater</name>
+	<description>Openfootball repo updater</description>
 
 	<properties>
 		<java.version>1.8</java.version>
