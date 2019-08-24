@@ -7,9 +7,11 @@ calendars:
   - name: Primera División
     url: https://www.marca.com/futbol/primera-division/calendario.html
     dest: 1-liga.txt
+    locale: es-ES
   - name: Segunda División
     url: https://www.marca.com/futbol/segunda-division/calendario.html
     dest: 2-liga2.txt
+    locale: es-ES
 logging:
   level:
     root: INFO

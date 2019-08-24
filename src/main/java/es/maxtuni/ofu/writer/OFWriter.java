@@ -23,11 +23,12 @@ import es.maxtuni.ofu.model.Season;
 public class OFWriter implements CalendarWriter {
 	
 	@Override
-	public void write(Calendar calendar, BufferedWriter writer) throws IOException {
+	public void write(Calendar calendar, BufferedWriter writer, Locale locale) throws IOException {
 		writer.write("###################################");
 		writer.newLine();
 		writer.write(String.format("# %s %s", calendar.getName(), Season.from(calendar)));
 		writer.newLine();
+		DateTimeFormatter dateFmt = dateFmt(locale), timeFmt = timeFmt(locale);
 		List<MatchInfo> matches = MatchInfo.fromCalendar(calendar);
 		Map<String, List<MatchInfo>> rounds = matches.stream()
 			.sorted(Comparator.comparing(mi -> Integer.valueOf(mi.getMatch().getRound().replaceAll("[^\\d.]", ""))))
@@ -47,14 +48,14 @@ public class OFWriter implements CalendarWriter {
 					TreeMap::new, Collectors.toList()
 				))
 				.entrySet()) {
-				writer.write(String.format("[%s]", capitalize(DATE_FMT.format(day.getKey()))));
+				writer.write(String.format("[%s]", capitalize(dateFmt.format(day.getKey()))));
 				writer.newLine();
 				for(MatchInfo mi : day.getValue().stream()
 					.sorted(Comparator.comparing(m -> m.getTime().get()))
 					.collect(Collectors.toList())
 				) {
 					StringBuilder sb = new StringBuilder();
-					sb.append(String.format(" %s ", TIME_FMT.format(mi.getTime().get())));
+					sb.append(String.format(" %s ", timeFmt.format(mi.getTime().get())));
 					sb.append(String.format("%-23s", mi.getMatch().getHome()));
 					if(mi.getResult().isPresent()) {
 						sb.append(String.format(" %s-%s ", mi.getResult().get().getHome(), mi.getResult().get().getAway()));
@@ -74,12 +75,14 @@ public class OFWriter implements CalendarWriter {
 		return input.substring(0, 1).toUpperCase() + input.substring(1);
 	}
 	
-	static final DateTimeFormatter TIME_FMT = DateTimeFormatter
-		.ofPattern("HH:mm")
-		.withLocale(Locale.forLanguageTag("es-ES"));
+	static DateTimeFormatter timeFmt(Locale locale) {
+		return DateTimeFormatter.ofPattern("HH:mm")
+				.withLocale(locale);
+	}
 	
-	static final DateTimeFormatter DATE_FMT = DateTimeFormatter
-		.ofPattern("EEE'.' d'.'M'.'")
-		.withLocale(Locale.forLanguageTag("es-ES"));
-	
+	static DateTimeFormatter dateFmt(Locale locale) {
+		return DateTimeFormatter
+			.ofPattern("EEE'.' d'.'M'.'")
+			.withLocale(locale);
+	}
 }

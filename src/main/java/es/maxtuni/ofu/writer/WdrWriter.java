@@ -3,6 +3,7 @@ package es.maxtuni.ofu.writer;
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 
 import es.maxtuni.ofu.model.Calendar;
 import es.maxtuni.ofu.model.Match;
@@ -10,7 +11,7 @@ import es.maxtuni.ofu.model.Match;
 public class WdrWriter implements CalendarWriter {
 
 	@Override
-	public void write(Calendar calendar, BufferedWriter writer) throws IOException {
+	public void write(Calendar calendar, BufferedWriter writer , Locale locale) throws IOException {
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
 		for(Match match : calendar.getMatches()) {
 			if(match.hasTeam("Racing") && calendar.getSchedules().containsKey(match)) {

@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.List;
+import java.util.Locale;
 import java.util.regex.Pattern;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +34,7 @@ public class RepoUpdater implements CommandLineRunner {
 			try(InputStream is = cal.getUrl().openStream()) {
 		        Calendar calendar = new MarcaReader(cal.getName()).read(is);
 		        log.debug("Parsed {} matches, with {} schedules and {} results", calendar.getMatches().size(), calendar.getSchedules().size(), calendar.getResults().size());
-		        ofFolder.updateCalendar(calendar, cal.getDest());
+		        ofFolder.updateCalendar(calendar, cal.getDest(), Locale.forLanguageTag(cal.getLocale()));
 		    }	
 		}
         repoFolder.publishChanges(Pattern.compile(".+\\.txt"));
@@ -54,7 +55,7 @@ public class RepoUpdater implements CommandLineRunner {
 	
 	@Data
 	public static class CalendarDetails {
-		private String name, dest;
+		private String name, dest, locale;
 		private URL url;
 	}
 	

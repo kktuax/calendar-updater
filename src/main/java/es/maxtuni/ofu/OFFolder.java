@@ -8,6 +8,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStreamWriter;
+import java.util.Locale;
 
 import es.maxtuni.ofu.model.Calendar;
 import es.maxtuni.ofu.reader.OFReader;
@@ -26,7 +27,7 @@ class OFFolder {
 	 * @param dest name of calendar file in folder e.g. 1-liga.txt
 	 * @throws IOException
 	 */
-	public void updateCalendar(Calendar calendar, String dest) throws IOException {
+	public void updateCalendar(Calendar calendar, String dest, Locale locale) throws IOException {
 		File seasonFolder = new File(folder, calendar.getSeason().toString().replaceAll("/", "-"));
         File localCalendarFile = new File(seasonFolder, dest);
         if(localCalendarFile.exists()) {
@@ -43,7 +44,7 @@ class OFFolder {
         }
         try(BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(localCalendarFile), "UTF-8"))){
         	log.info("Writing result calendar to: {}", localCalendarFile);
-    		new OFWriter().write(calendar, writer);
+    		new OFWriter().write(calendar, writer, locale);
     	}
 	}
 	
