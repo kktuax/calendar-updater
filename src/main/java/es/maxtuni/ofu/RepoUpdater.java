@@ -25,18 +25,18 @@ public class RepoUpdater implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
+		RepoFolder repoFolder = repoConfig.getRepoFolder();
+        repoFolder.init();
+        OFFolder ofFolder = new OFFolder(repoConfig.getFolder());
 		for(CalendarDetails cal : config.getCalendars()) {
 			log.debug("Reading calendar from {}", cal.getUrl());
 			try(InputStream is = cal.getUrl().openStream()) {
 		        Calendar calendar = new MarcaReader(cal.getName()).read(is);
 		        log.debug("Parsed {} matches, with {} schedules and {} results", calendar.getMatches().size(), calendar.getSchedules().size(), calendar.getResults().size());
-		        RepoFolder repoFolder = repoConfig.getRepoFolder();
-		        repoFolder.init();
-		        OFFolder ofFolder = new OFFolder(repoConfig.getFolder());
 		        ofFolder.updateCalendar(calendar, cal.getDest());
-		        repoFolder.publishChanges(Pattern.compile(".+\\.txt"));
 		    }	
 		}
+        repoFolder.publishChanges(Pattern.compile(".+\\.txt"));
 	}
 	
 	@Autowired
