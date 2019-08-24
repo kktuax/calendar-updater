@@ -1,7 +1,7 @@
 logging:
   level:
     root: INFO
-    es.maxtuni.mp: DEBUG
+    es.maxtuni.ofu: DEBUG
 ﻿openfootball-repo:
   url: https://github.com/openfootball/es-espana.git
   folder: ${java.io.tmpdir}/openfootball/es-espana

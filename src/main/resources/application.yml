@@ -13,4 +13,4 @@ calendars:
 logging:
   level:
     root: INFO
-    es.maxtuni.mp: INFO
+    es.maxtuni.ofu: INFO

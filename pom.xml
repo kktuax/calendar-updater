@@ -10,10 +10,10 @@
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>es.maxtuni</groupId>
-	<artifactId>of-updater</artifactId>
+	<artifactId>ofu</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>of-updater</name>
-	<description>Openfootball repo updater</description>
+	<name>ofu</name>
+	<description>Openfootball updater</description>
 
 	<properties>
 		<java.version>1.8</java.version>
