@@ -86,7 +86,7 @@ class RepoFolder {
 			}
 			addCommand.call();
 			git.commit()
-				.setMessage(String.format("Updated {}", changes.stream().collect(Collectors.joining(", "))))
+				.setMessage(String.format("Updated %s", changes.stream().collect(Collectors.joining(", "))))
 				.call();
 			log.info("Pushing new changes to {}", url);
 			git.push()
