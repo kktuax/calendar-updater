@@ -1,4 +1,8 @@
-﻿openfootball-folder: /home/kktuax/eclipse-ws/openfootball/es-espana
+﻿openfootball-repo:
+  url: https://github.com/openfootball/es-espana.git
+  user: ghuser
+  pw: ghpw
+  folder: ${java.io.tmpdir}/openfootball/es-espana
 calendars:
   - name: Primera División
     url: https://www.marca.com/futbol/primera-division/calendario.html
@@ -9,4 +13,4 @@ calendars:
 logging:
   level:
     root: INFO
-    es.maxtuni.mp: DEBUG
+    es.maxtuni.mp: INFO

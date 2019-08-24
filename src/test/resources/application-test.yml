@@ -2,3 +2,8 @@ logging:
   level:
     root: INFO
     es.maxtuni.mp: DEBUG
+﻿openfootball-repo:
+  url: https://github.com/openfootball/es-espana.git
+  folder: ${java.io.tmpdir}/openfootball/es-espana
+  user: ghuser
+  pw: ghpw
