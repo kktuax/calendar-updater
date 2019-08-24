@@ -8,6 +8,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.Comparator;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.TreeMap;
 import java.util.stream.Collectors;
@@ -73,7 +74,12 @@ public class OFWriter implements CalendarWriter {
 		return input.substring(0, 1).toUpperCase() + input.substring(1);
 	}
 	
-	static final DateTimeFormatter TIME_FMT = DateTimeFormatter.ofPattern("HH:mm"),
-		DATE_FMT = DateTimeFormatter.ofPattern("EEE'.' d'.'M'.'");
+	static final DateTimeFormatter TIME_FMT = DateTimeFormatter
+		.ofPattern("HH:mm")
+		.withLocale(Locale.forLanguageTag("es-ES"));
+	
+	static final DateTimeFormatter DATE_FMT = DateTimeFormatter
+		.ofPattern("EEE'.' d'.'M'.'")
+		.withLocale(Locale.forLanguageTag("es-ES"));
 	
 }
