@@ -11,8 +11,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import es.maxtuni.ofu.RepoFolder;
-
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @ActiveProfiles("test")
@@ -23,7 +21,7 @@ public class RepoFolderTest {
 	public void testInit() throws Exception {
 		RepoFolder repoFolder = new RepoFolder(folder, url, user, pw);
 		repoFolder.init();
-		repoFolder.publishChanges(Pattern.compile(".+\\.txt"));
+		repoFolder.publishChanges(Pattern.compile(".+\\.txt"), "es-ES");
 	}
 
 	@Value("${﻿openfootball-repo.url}")
