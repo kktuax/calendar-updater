@@ -57,7 +57,7 @@ class RepoFolder {
 	 * @throws IOException
 	 * @throws GitAPIException
 	 */
-	public void publishChanges(Pattern pattern) throws IOException, GitAPIException {
+	public void publishChanges(Pattern pattern, String email) throws IOException, GitAPIException {
 		try(Git git = new Git(new FileRepository(new File(folder, ".git")))){
 			Status status = git.status().call();
 			if(status.isClean()) {
@@ -86,6 +86,7 @@ class RepoFolder {
 			}
 			addCommand.call();
 			git.commit()
+				.setAuthor(user, email)
 				.setMessage(String.format("Updated %s", changes.stream().collect(Collectors.joining(", "))))
 				.call();
 			log.info("Pushing new changes to {}", url);

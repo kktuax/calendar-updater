@@ -37,7 +37,7 @@ public class RepoUpdater implements CommandLineRunner {
 		        ofFolder.updateCalendar(calendar, cal.getDest(), Locale.forLanguageTag(cal.getLocale()));
 		    }	
 		}
-        repoFolder.publishChanges(Pattern.compile(".+\\.txt"));
+        repoFolder.publishChanges(Pattern.compile(".+\\.txt"), repoConfig.getEmail());
 	}
 	
 	@Autowired
@@ -64,7 +64,7 @@ public class RepoUpdater implements CommandLineRunner {
 	@Data
 	static class OFRepoConfig {
 		
-		private String url, user, pw;
+		private String url, user, pw, email;
 		private File folder;
 		
 		private RepoFolder getRepoFolder() {

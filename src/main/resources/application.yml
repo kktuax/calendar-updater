@@ -2,6 +2,7 @@
   url: https://github.com/openfootball/es-espana.git
   user: ghuser
   pw: ghpw
+  email: user@domain.tld
   folder: ${java.io.tmpdir}/openfootball/es-espana
 calendars:
   - name: Primera División
