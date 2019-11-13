@@ -58,8 +58,8 @@ public class MarcaReader implements CalendarReader {
 			String round = table.select("caption").text();
 			log.debug("Parsing table for round: {}", round);	
 			for (Element matchTr : table.select("tr")) {
-				Optional<Element> homeSpan = Optional.ofNullable(matchTr.selectFirst("td.local span"));
-				Optional<Element> awaySpan = Optional.ofNullable(matchTr.selectFirst("td.visitante span"));
+				Optional<Element> homeSpan = Optional.ofNullable(matchTr.select("td.local span").first());
+				Optional<Element> awaySpan = Optional.ofNullable(matchTr.select("td.visitante span").first());
 				if(homeSpan.isPresent() && awaySpan.isPresent()) {
 					Match match = new Match(round, teamName(homeSpan.get().text()), teamName(awaySpan.get().text()));
 					builder = builder.match(match);
@@ -87,13 +87,13 @@ public class MarcaReader implements CalendarReader {
 	
 	static Optional<Result> result(Element matchTr){
 		Optional<Integer> home = Optional
-			.ofNullable(matchTr.selectFirst("td.resultado span.resultado-partido"))
+			.ofNullable(matchTr.select("td.resultado span.resultado-partido").first())
 			.map(e -> e.text())
 			.filter(str -> str.contains("-") && str.length() > 1)
 			.map(str -> str.split("-")[0].trim())
 			.map(Integer::valueOf);
 		Optional<Integer> away = Optional
-			.ofNullable(matchTr.selectFirst("td.resultado span.resultado-partido"))
+			.ofNullable(matchTr.select("td.resultado span.resultado-partido").first())
 			.map(e -> e.text())
 			.filter(str -> str.contains("-") && str.length() > 1)
 			.map(str -> str.split("-")[1].trim())
@@ -107,27 +107,27 @@ public class MarcaReader implements CalendarReader {
 	
 	static Optional<LocalDateTime> time(Element matchTr, Optional<Season> season){
 		Optional<Integer> dayOfMonth = Optional
-			.ofNullable(matchTr.selectFirst("td.resultado span.fecha"))
+			.ofNullable(matchTr.select("td.resultado span.fecha").first())
 			.map(e -> e.text())
 			.filter(str -> str.contains("/"))
 			.map(str -> str.split("/")[0])
 			.map(Integer::valueOf);
 		Optional<Integer> month = Optional
-			.ofNullable(matchTr.selectFirst("td.resultado span.fecha"))
+			.ofNullable(matchTr.select("td.resultado span.fecha").first())
 			.map(e -> e.text())
 			.filter(str -> str.contains("/"))
 			.map(str -> str.split("/")[1])
 			.map(Integer::valueOf);
 		if(season.isPresent() && dayOfMonth.isPresent() && month.isPresent()) {
 			Integer hour = Optional
-				.ofNullable(matchTr.selectFirst("td.resultado span.hora"))
+				.ofNullable(matchTr.select("td.resultado span.hora").first())
 				.map(e -> e.text())
 				.filter(str -> str.contains(":"))
 				.map(str -> str.split(":")[0])
 				.map(Integer::valueOf)
 				.orElse(18);
 			Integer minute = Optional
-				.ofNullable(matchTr.selectFirst("td.resultado span.hora"))
+				.ofNullable(matchTr.select("td.resultado span.hora").first())
 				.map(e -> e.text())
 				.filter(str -> str.contains(":"))
 				.map(str -> str.split(":")[1])
