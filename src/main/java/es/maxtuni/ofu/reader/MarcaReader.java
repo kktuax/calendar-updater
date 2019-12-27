@@ -46,8 +46,8 @@ public class MarcaReader implements CalendarReader {
 	}
 	
 	@Override
-	public Calendar read(InputStream calendarIs) throws IOException {
-		Document doc = Jsoup.parse(calendarIs, "ISO-8859-1", "https://www.marca.com/");
+	public Calendar read(InputStream calendarIs, String cs) throws IOException {
+		Document doc = Jsoup.parse(calendarIs, cs, "https://www.marca.com/");
 		Optional<Season> season = season(doc);
 		Calendar.CalendarBuilder builder = Calendar.builder()
 			.name(name)

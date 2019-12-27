@@ -28,11 +28,11 @@ public class RepoUpdater implements CommandLineRunner {
 	public void run(String... args) throws Exception {
 		RepoFolder repoFolder = repoConfig.getRepoFolder();
         repoFolder.init();
-        OFFolder ofFolder = new OFFolder(repoConfig.getFolder());
+        OFFolder ofFolder = new OFFolder(repoConfig.getFolder(), repoConfig.getCs());
 		for(CalendarDetails cal : config.getCalendars()) {
 			log.debug("Reading calendar from {}", cal.getUrl());
 			try(InputStream is = cal.getUrl().openStream()) {
-		        Calendar calendar = new MarcaReader(cal.getName()).read(is);
+		        Calendar calendar = new MarcaReader(cal.getName()).read(is, cal.getCs());
 		        log.debug("Parsed {} matches, with {} schedules and {} results", calendar.getMatches().size(), calendar.getSchedules().size(), calendar.getResults().size());
 		        ofFolder.updateCalendar(calendar, cal.getDest(), Locale.forLanguageTag(cal.getLocale()));
 		    }	
@@ -55,7 +55,7 @@ public class RepoUpdater implements CommandLineRunner {
 	
 	@Data
 	public static class CalendarDetails {
-		private String name, dest, locale;
+		private String name, dest, locale, cs;
 		private URL url;
 	}
 	
@@ -64,7 +64,7 @@ public class RepoUpdater implements CommandLineRunner {
 	@Data
 	static class OFRepoConfig {
 		
-		private String url, user, pw, email;
+		private String url, user, pw, email, cs;
 		private File folder;
 		
 		private RepoFolder getRepoFolder() {

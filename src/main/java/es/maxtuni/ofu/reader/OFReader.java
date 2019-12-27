@@ -22,10 +22,10 @@ public class OFReader implements CalendarReader {
 	private final String name;
 	
 	@Override
-	public Calendar read(InputStream calendarIs) throws IOException {
+	public Calendar read(InputStream calendarIs, String cs) throws IOException {
 		Calendar.CalendarBuilder builder = Calendar.builder()
 			.name(name);
-		try(BufferedReader reader = new BufferedReader(new InputStreamReader(calendarIs, "UTF-8"))){
+		try(BufferedReader reader = new BufferedReader(new InputStreamReader(calendarIs, cs))){
 			String line = null, round = null;
 			Integer dayOfMonth = null, month = null;
 			Season season = null;

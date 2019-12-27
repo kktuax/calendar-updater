@@ -17,8 +17,8 @@ public class MarcaReaderTest {
 	@Ignore("external resource")
 	@Test
 	public void testParseUrl() throws Exception {
-		try(InputStream is = new URL("https://www.marca.com/futbol/segunda-division/calendario.html").openStream()){
-			Calendar calendar = new MarcaReader("Test").read(is);
+		try(InputStream is = new URL("https://www.marca.com/futbol/primera-division/calendario.html").openStream()){
+			Calendar calendar = new MarcaReader("Test").read(is, "ISO-8859-15");
 			Assert.assertFalse(calendar.getMatches().isEmpty());
 		}
 	}
@@ -26,7 +26,7 @@ public class MarcaReaderTest {
 	@Test
 	public void testParse() throws Exception {
 		try(InputStream is = getClass().getResourceAsStream("/calendar-2394092156733122534.html")){
-			Calendar calendar = new MarcaReader("Test").read(is);
+			Calendar calendar = new MarcaReader("Test").read(is, "ISO-8859-15");
 			Assert.assertFalse(calendar.getMatches().isEmpty());
 			Assert.assertEquals(42, calendar.getMatches().stream()
 				.collect(Collectors.groupingBy(Match::getRound))

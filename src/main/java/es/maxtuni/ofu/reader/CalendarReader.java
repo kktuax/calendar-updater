@@ -7,6 +7,6 @@ import es.maxtuni.ofu.model.Calendar;
 
 public interface CalendarReader {
 
-	public Calendar read(InputStream calendarIs) throws IOException;
+	public Calendar read(InputStream calendarIs, String cs) throws IOException;
 	
 }

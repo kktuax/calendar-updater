@@ -22,6 +22,8 @@ class OFFolder {
 
 	private final File folder;
 	
+	private final String charset;
+	
 	/** updates calendar file, or creates if if folder/season/dest is not existing
 	 * @param calendar
 	 * @param dest name of calendar file in folder e.g. 1-liga.txt
@@ -32,7 +34,7 @@ class OFFolder {
         File localCalendarFile = new File(seasonFolder, dest);
         if(localCalendarFile.exists()) {
         	try(InputStream lis = new FileInputStream(localCalendarFile)) {
-        		Calendar existingCalendar = new OFReader(calendar.getName()).read(lis);
+        		Calendar existingCalendar = new OFReader(calendar.getName()).read(lis, charset);
         		calendar = existingCalendar.update(calendar);
         	}
         }else {
@@ -42,7 +44,7 @@ class OFFolder {
         		}
         	}
         }
-        try(BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(localCalendarFile), "UTF-8"))){
+        try(BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(localCalendarFile), charset))){
         	log.info("Writing result calendar to: {}", localCalendarFile);
     		new OFWriter().write(calendar, writer, locale);
     	}

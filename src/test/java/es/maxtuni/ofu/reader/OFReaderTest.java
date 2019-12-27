@@ -14,7 +14,7 @@ public class OFReaderTest {
 	@Test
 	public void testParse() throws Exception {
 		try(InputStream is = getClass().getResourceAsStream("/1-liga.txt")){
-			Calendar calendar = new OFReader("Primera División").read(is);
+			Calendar calendar = new OFReader("Primera División").read(is, "UTF-8");
 			Assert.assertEquals(new Season(2019, 2020), calendar.getSeason());
 			Assert.assertFalse(calendar.getMatches().isEmpty());
 			Assert.assertFalse(calendar.getSchedules().isEmpty());

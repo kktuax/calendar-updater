@@ -4,15 +4,18 @@
   pw: ghpw
   email: user@domain.tld
   folder: ${java.io.tmpdir}/openfootball/es-espana
+  cs: UTF-8
 calendars:
   - name: Primera División
     url: https://www.marca.com/futbol/primera-division/calendario.html
     dest: 1-liga.txt
     locale: es-ES
+    cs: ISO-8859-15
   - name: Segunda División
     url: https://www.marca.com/futbol/segunda-division/calendario.html
     dest: 2-liga2.txt
     locale: es-ES
+    cs: ISO-8859-15
 logging:
   level:
     root: INFO
