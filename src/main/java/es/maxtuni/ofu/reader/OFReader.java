@@ -70,6 +70,6 @@ public class OFReader implements CalendarReader {
 	}
 	
 	static final Pattern RESULT_LINE_PATTERN = Pattern.compile("\\s*(\\d\\d:\\d\\d)?\\s*(.+)\\s+(\\d+)?-(\\d+)?\\s+(.+)\\s*"),
-		DATE_LINE_PATTERN = Pattern.compile("\\s*\\[.{3}\\.\\s(\\d+)\\.(\\d+)\\.\\]\\s*");
+		DATE_LINE_PATTERN = Pattern.compile("\\s*\\[.+\\s(\\d+)\\.(\\d+)\\.\\]\\s*");
 	
 }
